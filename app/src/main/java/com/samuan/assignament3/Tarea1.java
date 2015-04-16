@@ -47,7 +47,11 @@ public class Tarea1 extends AsyncTask<String, Integer, String>{
                 e.printStackTrace();
             }
         }
-        return "terminado";
+
+        int a=5;
+        a=a+1;
+
+        return "terminado "+a;
     }
 
     @Override
