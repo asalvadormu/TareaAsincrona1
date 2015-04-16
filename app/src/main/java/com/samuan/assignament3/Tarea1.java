@@ -35,6 +35,7 @@ public class Tarea1 extends AsyncTask<String, Integer, String>{
     @Override
     protected void onPostExecute(String result) {
         Log.i("ALGO", "EL RESULTADO " + result);
+        delegate.procesarFin(result);
     }
 
 
