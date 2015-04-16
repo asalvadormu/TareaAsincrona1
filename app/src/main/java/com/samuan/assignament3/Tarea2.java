@@ -17,7 +17,7 @@ public class Tarea2 extends AsyncTask<String,Integer,String>{
                 e.printStackTrace();
             }
         }
-        return "terminado2";
+        return "terminado2 "+params[0];
     }
 
     @Override

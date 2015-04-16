@@ -8,37 +8,11 @@ import android.util.Log;
  */
 public class Tarea1 extends AsyncTask<String, Integer, String>{
 
-    /**
-     this not problem just take and store somewhere parameter from onPostExecute
-     of authTask and when authTask finished pass it to imageTask**/
-
-    /**if(authTask .getStatus() == AsyncTask.Status.PENDING){
-     // My AsyncTask has not started yet
-     }
-
-     if(authTask .getStatus() == AsyncTask.Status.RUNNING){
-     // My AsyncTask is currently doing work in doInBackground()
-     }
-
-     if(authTask .getStatus() == AsyncTask.Status.FINISHED){
-     // START NEW TASK HERE
-     }**/
-
-
-    /**authTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-     // Image task will only be done AFTER textViewTask is done
-     imageTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
-     And for newer versions a simple
-
-     ...
-     // ICS+ and pre honeycomb (I think)
-     authTask.execute();
-     // Image task will only be done AFTER textViewTask is done
-     imageTask.execute();
-     ...**/
+    public RespuestaAsincrona delegate=null;
 
     @Override
     protected String doInBackground(String[] params) {
+
         for(int i=0;i<5;i++) {
             try {
                 Thread.sleep(1000);
@@ -51,7 +25,7 @@ public class Tarea1 extends AsyncTask<String, Integer, String>{
         int a=5;
         a=a+1;
 
-        return "terminado "+a;
+        return "terminado"+a;
     }
 
     @Override
@@ -62,6 +36,7 @@ public class Tarea1 extends AsyncTask<String, Integer, String>{
     @Override
     protected void onPostExecute(String result) {
         Log.i("ALGO", "EL RESULTADO " + result);
+        delegate.procesarFin(result);
     }
 
 

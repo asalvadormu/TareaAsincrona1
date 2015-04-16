@@ -7,15 +7,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements RespuestaAsincrona{
+
+    Tarea2 tarea2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i("TAG", "inicio");
-        new Tarea1().execute("a");
+        Tarea1 tarea1= new Tarea1();
+        tarea1.delegate=this;
+        tarea2= new Tarea2();
+
+        tarea1.execute("a");
+        tarea1.getStatus();
         Log.i("TAG","despues");
+
+        Log.i("TAG","final");
+
     }
 
 
@@ -39,5 +49,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void procesarFin(String salida) {
+        Log.i("TAG","procesado fin "+salida);
+        tarea2.execute(salida);
     }
 }
