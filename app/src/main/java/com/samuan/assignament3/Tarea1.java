@@ -23,7 +23,9 @@ public class Tarea1 extends AsyncTask<String, Integer, String>{
         }
 
         int a=5;
-        a=a+1/2;
+        a=a+1/2-5;
+
+
 
         return "terminado"+a;
     }
