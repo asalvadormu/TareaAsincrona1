@@ -1,31 +1,37 @@
 package com.samuan.assignament3;
 
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 public class MainActivity extends ActionBarActivity implements RespuestaAsincrona{
 
+    Tarea1 tarea1;
     Tarea2 tarea2;
+
+    private EditText texto;
+    public ImageView imagen;
+    private ImageView imagen2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i("TAG", "inicio");
-        Tarea1 tarea1= new Tarea1();
-        tarea1.delegate=this;
-        tarea2= new Tarea2();
 
-        tarea1.execute("a");
-        tarea1.getStatus();
-        Log.i("TAG","despues");
+        Log.i("TAG", "inicio");
+        texto=(EditText) findViewById(R.id.editText);
+        imagen=(ImageView) findViewById(R.id.imageView);
+        imagen2=(ImageView) findViewById(R.id.imageView2);
+
+
 
         Log.i("TAG","final");
-
     }
 
 
@@ -51,9 +57,29 @@ public class MainActivity extends ActionBarActivity implements RespuestaAsincron
         return super.onOptionsItemSelected(item);
     }
 
+    public void onclick(View v){
+
+        tarea1= new Tarea1(getApplicationContext()); //aqui para hacer un nuevo objeto y solo ejecutar la tarea asincrona una vez.
+        tarea1.delegate=this;
+        tarea2= new Tarea2(getApplicationContext());
+        tarea2.delegate=this;
+
+        //captura texto de la direccion de la imange
+        //generar tarea 1 para descarga de imagen
+        String direc = String.valueOf(texto.getText());
+        Log.i("ASIG3","click "+direc);
+
+        tarea1.execute(direc);
+    }
+
     @Override
-    public void procesarFin(String salida) {
-        Log.i("TAG","procesado fin "+salida);
-        tarea2.execute(salida);
+    public void procesarFin(int cual,Uri salida) {
+        Log.i("TAG","procesado fin: cual: "+cual+" salida: "+salida);
+        if(cual==1){
+            imagen.setImageURI(salida); //mostrar en pantalla en color
+            tarea2.execute(salida.toString());
+        }else{
+            imagen2.setImageURI(salida); //imagen en gris
+        }
     }
 }
