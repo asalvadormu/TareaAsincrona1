@@ -14,6 +14,7 @@ public class Tarea1 extends AsyncTask<String, Integer, Uri>{
 
     public RespuestaAsincrona delegate=null;
     public Context context;
+    //cambiar a carga en constructor
 
     public Tarea1(Context context){
         this.context=context;
